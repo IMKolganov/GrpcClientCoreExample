@@ -1,10 +1,8 @@
 ﻿// See https://aka.ms/new-console-template for more information
-using System;
-using System.Net.Http;
-using System.Threading.Tasks;
+
 using Grpc.Net.Client;
-// using Grpc.Net.Client.Web;
 using GrpcServiceClientCoreExample;
+// using Grpc.Net.Client.Web;
 
 Console.WriteLine("Start!");
 
@@ -12,17 +10,15 @@ try
 {
     for (int i = 0; i < 10; i++)
     {
-
-
         Console.WriteLine($"Create chanell");
         
         // создаем канал для обмена сообщениями с сервером
         // параметр - адрес сервера gRPC
-        using var channel = GrpcChannel.ForAddress("https://localhost:7154/");
+        using var channel = GrpcChannel.ForAddress("http://localhost:5063/");
         // создаем клиент
         var client = new Greeter.GreeterClient(channel);
         // Console.Write("Enter name: ");
-        var name = "alla";
+        var name = Guid.NewGuid().ToString();
         Console.ReadLine();
         // обмениваемся сообщениями с сервером
         var reply = await client.SayHelloAsync(new HelloRequest { Name = name });
